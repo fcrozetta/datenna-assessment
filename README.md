@@ -24,7 +24,7 @@ The easiest way to start everything:
 docker compose up --build
 ```
 
-and access the documentation page via [local OpenAPI ](http://localhost/docs)
+and access the documentation page via [local OpenAPI ](http://localhost/docs) or [redoc](http://localhost/redoc)
 
 
 ## Project design
