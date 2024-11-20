@@ -1,4 +1,20 @@
 # datenna-assessment
+<!-- TOC -->
+
+- [datenna-assessment](#datenna-assessment)
+  - [Quickstart](#quickstart)
+  - [Project design](#project-design)
+  - [Graph and DB design](#graph-and-db-design)
+  - [Administrative actions](#administrative-actions)
+  - [Decisions](#decisions)
+  - [Code Structure](#code-structure)
+    - [routes](#routes)
+    - [repository and service](#repository-and-service)
+    - [Schemas](#schemas)
+    - [Queries](#queries)
+  - [What was not implemented](#what-was-not-implemented)
+
+<!-- /TOC -->
 
 ## Quickstart
 
@@ -36,7 +52,7 @@ flowchart TD
 
 Authentication and authorization are also out of scope in this design, but have to be addressed by an external party, like oauth0/okta.
 
-## Graph/DB design
+## Graph and DB design
 
 I planned this initial structure with simplicity in mind, but allowing further expansion. For now it is a conjunction of two node types and one edge
 
@@ -53,7 +69,7 @@ In a real world application, some tasks should be done during deployment process
 
 Since this is not expeceted to run in a valid environment, it also allows the user to perform things that can result in a crash. It is an expected behavior.
 
-## Decisions:
+## Decisions
 
 Instead of doing things in the API memory, which is not scalable, it was decided to implement it connecting to a database, maitaining state and offloading queries to the DB server. Since the database is being considered only a repository, queries should not be stored internally, rather passed via API. This decision initially does not take in account heavy queries that require a long time of execution.
 
@@ -102,3 +118,4 @@ Due to time restrictions (and me being sick for the week), some features that I 
   - In most cases it will log the error and just raise it again (so sentry can catch it)
 - github actions
   - having this to be executed when the code is changed or in a pull request would be a good example of how to validate before push
+- Better explained commits
