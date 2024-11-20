@@ -1,0 +1,8 @@
+FOR i IN 1..100000
+    LET randomCustomer = TO_STRING(FLOOR(RAND() * 10000) + 1)
+    LET randomProduct = TO_STRING(FLOOR(RAND() * 10000) + 1)
+    INSERT {
+        _from: CONCAT("customers/", randomCustomer),
+        _to: CONCAT("products/", randomProduct),
+        weight: FLOOR(RAND() * 10) + 1  // Random weight between 1 and 10
+    } INTO purchases

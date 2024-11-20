@@ -1,0 +1,13 @@
+FOR i IN 1..10000
+    INSERT {
+        _key: TO_STRING(i),
+        name: CONCAT("Customer_", i),
+        is_active: true
+    } INTO customers
+
+    INSERT {
+        _key: TO_STRING(i),
+        name: CONCAT("Product_", i),
+        price: FLOOR(RAND() * 500) + 1,  // Random price between 1 and 500
+        is_active: true
+    } INTO products

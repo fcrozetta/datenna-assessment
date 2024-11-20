@@ -1,0 +1,31 @@
+// Variables:
+// targetCustomer : customer _key
+
+
+// Find products the target customer has already bought
+LET productsBought = (
+    FOR product IN OUTBOUND @targetCustomer purchases
+        RETURN product._id
+)
+
+// Find other customers who bought the same products
+LET similarCustomers = (
+    FOR product IN OUTBOUND @targetCustomer purchases
+        FOR customer IN INBOUND product purchases
+            FILTER customer._id != @targetCustomer
+            RETURN DISTINCT customer
+)
+
+// Find products bought by similar customers but not the target customer
+LET recommendedProducts = (
+    FOR customer IN similarCustomers
+        FOR product IN OUTBOUND customer purchases
+            FILTER product._id NOT IN productsBought
+            COLLECT productId = product._id INTO productGroup
+            LET score = SUM(productGroup[*].bought.weight)  // Sum weights as a score (Not being currently used)
+            SORT score DESC
+            RETURN { productId, score }
+)
+
+// Return the top recommended products
+RETURN recommendedProducts

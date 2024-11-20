@@ -1,0 +1,4 @@
+// variables
+// product: product_key key
+FOR customer IN INBOUND @product_key purchases
+        RETURN customer
