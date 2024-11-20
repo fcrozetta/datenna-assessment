@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 80:80
+    env_file:
+      - docker.env
+  arangodb:
+    image: arangodb:latest
+    environment:
+      - ARANGO_ROOT_PASSWORD=root
+    ports:
+      - 8529:8529
